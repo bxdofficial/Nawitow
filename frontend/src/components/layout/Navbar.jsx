@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../../contexts/AuthContext'
+import { useTheme } from '../../contexts/ThemeContext'
 import { 
   Bars3Icon, 
   XMarkIcon, 
   UserCircleIcon,
   ArrowRightOnRectangleIcon,
-  Cog6ToothIcon
+  Cog6ToothIcon,
+  SunIcon,
+  MoonIcon
 } from '@heroicons/react/24/outline'
 
 const Navbar = () => {
@@ -15,6 +18,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
   const { user, logout, isAdmin } = useAuth()
+  const { isDarkMode, toggleTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,19 +73,38 @@ const Navbar = () => {
                 to={link.path}
                 className={`relative font-medium transition-colors duration-300 ${
                   isActive(link.path)
-                    ? 'text-nawi-blue'
-                    : 'text-gray-300 hover:text-white'
+                    ? isDarkMode ? 'text-nawi-blue' : 'text-nawi-sky'
+                    : isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {link.name}
                 {isActive(link.path) && (
                   <motion.div
                     layoutId="navbar-indicator"
-                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-nawi-blue to-nawi-purple"
+                    className={`absolute -bottom-2 left-0 right-0 h-0.5 ${
+                      isDarkMode 
+                        ? 'bg-gradient-to-r from-nawi-blue to-nawi-purple'
+                        : 'bg-gradient-to-r from-nawi-sky to-nawi-cyan'
+                    }`}
                   />
                 )}
               </Link>
             ))}
+
+            {/* Theme Toggle */}
+            <motion.button
+              onClick={toggleTheme}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="p-2 rounded-full glass-effect hover:bg-white/10 transition-colors"
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {isDarkMode ? (
+                <SunIcon className="w-6 h-6 text-nawi-sky" />
+              ) : (
+                <MoonIcon className="w-6 h-6 text-nawi-blue" />
+              )}
+            </motion.button>
 
             {/* User Menu */}
             {user ? (

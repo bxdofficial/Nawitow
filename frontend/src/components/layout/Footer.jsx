@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { WhatsAppIcon, InstagramIcon, FacebookIcon, BehanceIcon, SocialIconWrapper } from '../ui/SocialIcons'
 import {
   EnvelopeIcon,
   PhoneIcon,
@@ -10,10 +11,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { name: 'WhatsApp', href: 'https://wa.me/201206315886', icon: '💬' },
-    { name: 'Instagram', href: 'https://instagram.com/nawidesign', icon: '📷' },
-    { name: 'Facebook', href: 'https://facebook.com/nawidesign', icon: '👍' },
-    { name: 'Behance', href: 'https://behance.net/nawidesign', icon: '🎨' },
+    { name: 'WhatsApp', href: 'https://wa.me/201206315886', component: WhatsAppIcon },
+    { name: 'Instagram', href: 'https://instagram.com/nawidesign', component: InstagramIcon },
+    { name: 'Facebook', href: 'https://facebook.com/nawidesign', component: FacebookIcon },
+    { name: 'Behance', href: 'https://behance.net/nawidesign', component: BehanceIcon },
   ]
 
   const quickLinks = [
@@ -54,20 +55,24 @@ const Footer = () => {
               فريق التصميم اللي بيحوّل فكرتك لهوية مميزة
             </p>
             <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 glass-effect rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
-                  title={social.name}
-                >
-                  <span className="text-xl">{social.icon}</span>
-                </motion.a>
-              ))}
+              {socialLinks.map((social) => {
+                const IconComponent = social.component
+                return (
+                  <motion.div
+                    key={social.name}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <SocialIconWrapper
+                      href={social.href}
+                      name={social.name}
+                      className="w-10 h-10 flex items-center justify-center"
+                    >
+                      <IconComponent className="w-5 h-5" />
+                    </SocialIconWrapper>
+                  </motion.div>
+                )
+              })}
             </div>
           </motion.div>
 

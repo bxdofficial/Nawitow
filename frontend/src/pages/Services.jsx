@@ -6,8 +6,8 @@ import toast from 'react-hot-toast'
 import { Link } from 'react-router-dom'
 import {
   PaintBrushIcon,
-  DevicePhoneMobileIcon,
-  GlobeAltIcon,
+  ShareIcon,
+  SwatchIcon,
   PrinterIcon,
   SparklesIcon,
   CheckCircleIcon,
@@ -38,8 +38,8 @@ const Services = () => {
   const getIcon = (iconName) => {
     const icons = {
       brush: <PaintBrushIcon className="w-8 h-8" />,
-      share: <DevicePhoneMobileIcon className="w-8 h-8" />,
-      palette: <GlobeAltIcon className="w-8 h-8" />,
+      share: <ShareIcon className="w-8 h-8" />,
+      palette: <SwatchIcon className="w-8 h-8" />,
       print: <PrinterIcon className="w-8 h-8" />,
     }
     return icons[iconName] || <SparklesIcon className="w-8 h-8" />
